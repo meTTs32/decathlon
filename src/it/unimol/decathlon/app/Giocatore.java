@@ -32,10 +32,6 @@ public class Giocatore implements Comparable<Giocatore>, Serializable {
         return this.nome;
     }
 
-    public int getPunteggio() {
-        return this.punteggio;
-    }
-
     public int getTempPunteggio() {
         return this.tempPunteggio;
     }

@@ -9,7 +9,7 @@ public class GestoreGiocatori implements Serializable {
     private static GestoreGiocatori instance;
 
     private GestoreGiocatori() {
-        this.classifica = new ArrayList<Giocatore>();
+        this.classifica = new ArrayList<>();
     }
     private GestoreGiocatori(GestoreGiocatori g) { this.classifica = new ArrayList<>(g.getList()); }
 
@@ -24,9 +24,6 @@ public class GestoreGiocatori implements Serializable {
         return instance;
     }
 
-    /*public void loadList(GestoreGiocatori g) {
-        this.classifica = new ArrayList<>(g.getList());
-    }*/
     public void addGiocatore(Giocatore g) {
         this.classifica.add(g);
     }
