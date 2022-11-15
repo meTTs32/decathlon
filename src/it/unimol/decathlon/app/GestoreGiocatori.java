@@ -1,5 +1,7 @@
 package it.unimol.decathlon.app;
 
+import it.unimol.decathlon.app.exceptions.DuplicatePlayerException;
+
 import java.io.*;
 import java.util.*;
 
@@ -24,8 +26,11 @@ public class GestoreGiocatori implements Serializable {
         return instance;
     }
 
-    public void addGiocatore(Giocatore g) {
-        this.classifica.add(g);
+    public void addGiocatore(Giocatore g) throws DuplicatePlayerException {
+        if(this.contains(g.getNome()))
+            throw new DuplicatePlayerException();
+        else
+            this.classifica.add(g);
     }
 
     public Giocatore getGiocatore (int i) {
@@ -69,5 +74,9 @@ public class GestoreGiocatori implements Serializable {
         }
 
         return false;
+    }
+
+    public void reset() {
+        this.classifica.clear();
     }
 }

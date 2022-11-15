@@ -1,5 +1,7 @@
 package it.unimol.decathlon.app;
 
+import it.unimol.decathlon.app.exceptions.VoidNameException;
+
 import java.io.Serializable;
 
 public class Giocatore implements Comparable<Giocatore>, Serializable {
@@ -9,11 +11,14 @@ public class Giocatore implements Comparable<Giocatore>, Serializable {
     private int tempPunteggio;
 
 
-    public Giocatore(String nome) {
-        this.nome = nome;
-        this.punteggio = 0;
-        this.tempPunteggio = 0;
-
+    public Giocatore(String nome) throws VoidNameException {
+        if(nome.isEmpty())
+            throw new VoidNameException();
+        else {
+            this.nome = nome;
+            this.punteggio = 0;
+            this.tempPunteggio = 0;
+        }
     }
 
     public void addPunteggio(int punti) {
@@ -43,7 +48,7 @@ public class Giocatore implements Comparable<Giocatore>, Serializable {
 
     @Override
     public int compareTo(Giocatore g) {
-        int comparePunt = ((Giocatore) g).punteggio - this.punteggio;
+        int comparePunt = g.punteggio - this.punteggio;
         if (comparePunt == 0)
             return this.nome.compareTo(g.nome);
         return comparePunt;

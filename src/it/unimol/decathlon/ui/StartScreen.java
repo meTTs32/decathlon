@@ -56,13 +56,15 @@ public class StartScreen extends Screen {
                 contained = false;
                 System.out.print("Inserisci nome del giocaotore " + (i+1) + ": ");
                 s = this.inputString();
-                if (this.playerManager.contains(s)) {
-                    System.out.println("Giocatore gia' presente");
+                try {
+                    this.playerManager.addGiocatore(new Giocatore(s));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
                     contained = true;
                 }
             } while(contained);
 
-            this.playerManager.addGiocatore(new Giocatore(s));
+
         }
     }
 

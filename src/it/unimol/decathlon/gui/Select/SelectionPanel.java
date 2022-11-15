@@ -1,8 +1,13 @@
 package it.unimol.decathlon.gui.Select;
 
+import it.unimol.decathlon.app.GestoreGiocatori;
+import it.unimol.decathlon.app.Giocatore;
+import it.unimol.decathlon.gui.MainFrame;
+
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
+
+import static javax.swing.SwingUtilities.getWindowAncestor;
 
 
 public class SelectionPanel extends JPanel {
@@ -48,10 +53,28 @@ public class SelectionPanel extends JPanel {
     }
 
     private void ok(){
+        GestoreGiocatori playerManager = GestoreGiocatori.getInstance();
+        boolean error = false;
+        //vengono scannerizzati tutti i componenti del pannello
+        //se uno di essi è una text field, viene aggiunto un giocatore con il nome inserito
+        //(a meno che non si presenti un'eccezione: in tal caso viene resettato il player manager e annullata l'operazione)
         for (Component c : this.getComponents()){
             if (c instanceof JTextField){
-                System.out.println(((JTextField) c).getText());
+                try {
+                    playerManager.addGiocatore(new Giocatore(((JTextField) c).getText()));
+                } catch (Exception e) {
+                    error = true;
+                    playerManager.reset();
+                    JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
             }
         }
+
+        if (!error){
+            getWindowAncestor(this).dispose();
+            MainFrame.getInstance().setVisible(true);
+        }
+
     }
 }
