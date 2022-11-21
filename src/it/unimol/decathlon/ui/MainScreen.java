@@ -1,7 +1,7 @@
 package it.unimol.decathlon.ui;
 
-import it.unimol.decathlon.app.Disciplina;
-import it.unimol.decathlon.app.GestoreGiocatori;
+import it.unimol.decathlon.app.Discipline;
+import it.unimol.decathlon.app.PlayerManager;
 
 import java.io.*;
 import java.util.List;
@@ -21,22 +21,22 @@ public class MainScreen extends Screen{
         if(file.exists()) {
             try (
                 FileInputStream fis = new FileInputStream(FILENAME);
-                ObjectInputStream ois = new ObjectInputStream(fis);
+                ObjectInputStream ois = new ObjectInputStream(fis)
             ) {
                 Object[] obj = (Object[]) ois.readObject();
 
                 this.disciplineList = (List) obj[0];
-                this.playerManager = GestoreGiocatori.getInstance((GestoreGiocatori) obj[1]);
+                this.playerManager = PlayerManager.getInstance((PlayerManager) obj[1]);
                 this.currentDiscipline = (String) obj[2];
 
             } catch (Exception e) {}
         } else {
             this.disciplineList = new ArrayList<Screen>();
             this.currentDiscipline = "";
-            this.playerManager = GestoreGiocatori.getInstance();
+            this.playerManager = PlayerManager.getInstance();
         }
 
-        this.disciplina = null;
+        this.discipline = null;
     }
 
     public void start() {
@@ -69,7 +69,7 @@ public class MainScreen extends Screen{
     }
 
     private void setCurrent(Screen s) {
-        this.currentDiscipline = s.getDisciplina().getNome();
+        this.currentDiscipline = s.getDisciplina().getName();
 
     }
 
@@ -77,11 +77,11 @@ public class MainScreen extends Screen{
         String output = "Discipline:\n";
         for(Screen s : lista) {
             if(s.getDisciplina().getFinished()) {
-                output+= "#    " + s.getDisciplina().getNome() + "\n";
-            } else if(this.currentDiscipline.equals(s.getDisciplina().getNome())) {
+                output+= "#    " + s.getDisciplina().getName() + "\n";
+            } else if(this.currentDiscipline.equals(s.getDisciplina().getName())) {
                 output += "*    " + this.currentDiscipline  + "\n";
             } else {
-                output += "     " + s.getDisciplina().getNome() + "\n";
+                output += "     " + s.getDisciplina().getName() + "\n";
             }
         }
         System.out.println(output + "\n" + this.playerManager.toString() );
@@ -91,8 +91,8 @@ public class MainScreen extends Screen{
 
     private void creaDiscipline() {
 
-        Screen100Metri centoMetri = new Screen100Metri(new Disciplina("100 Metri"));
-        Screen100Metri centoMetri2 = new Screen100Metri(new Disciplina("100 Metria"));
+        Screen100Metri centoMetri = new Screen100Metri(new Discipline("100 Metri"));
+        Screen100Metri centoMetri2 = new Screen100Metri(new Discipline("100 Metria"));
 
         this.addDiscipline(centoMetri);
         this.addDiscipline(centoMetri2);

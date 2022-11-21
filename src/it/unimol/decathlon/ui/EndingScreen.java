@@ -1,6 +1,6 @@
 package it.unimol.decathlon.ui;
 
-import it.unimol.decathlon.app.GestoreGiocatori;
+import it.unimol.decathlon.app.PlayerManager;
 
 import java.io.File;
 
@@ -10,8 +10,8 @@ import java.io.File;
 public class EndingScreen extends Screen{
 
     public EndingScreen() {
-        this.playerManager = GestoreGiocatori.getInstance();
-        this.disciplina = null;
+        this.playerManager = PlayerManager.getInstance();
+        this.discipline = null;
     }
 
     public void start() {

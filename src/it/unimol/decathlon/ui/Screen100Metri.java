@@ -8,35 +8,35 @@ import java.util.*;
 public class Screen100Metri extends Screen{
 
 
-    public Screen100Metri(Disciplina disciplina) {
-        this.disciplina = disciplina;
-        this.playerManager = GestoreGiocatori.getInstance();
+    public Screen100Metri(Discipline discipline) {
+        this.discipline = discipline;
+        this.playerManager = PlayerManager.getInstance();
     }
 
 
     public void start(){
-        Giocatore currentPlayer;
+        Player currentPlayer;
         String start;
         this.playerManager.resetTemp();
 
         do {
-            currentPlayer = this.disciplina.getCurrentPlayer();
-            start = "Gioco corrente: " + this.disciplina.getNome() + "\nE' il turno di " + currentPlayer.getNome();
+            currentPlayer = this.discipline.getCurrentPlayer();
+            start = "Gioco corrente: " + this.discipline.getName() + "\nE' il turno di " + currentPlayer.getName();
             this.clearScreen();
             System.out.println(start);
             this.getPunti(currentPlayer);
-        } while(!(this.disciplina.isFinished()));
+        } while(!(this.discipline.isFinished()));
 
         this.clearScreen();
         this.getEnding();
-        this.disciplina.setFinished(true);
+        this.discipline.setFinished(true);
     }
 
 
 
-    private void getPunti(Giocatore currentPlayer){
+    private void getPunti(Player currentPlayer){
 
-        String start = "Gioco corrente: 100 metri\nE' il turno di " + currentPlayer.getNome();
+        String start = "Gioco corrente: 100 metri\nE' il turno di " + currentPlayer.getName();
         int rilanci = 5;
         String Slot;
         String Slot2;
@@ -57,7 +57,7 @@ public class Screen100Metri extends Screen{
             continua = false;
             temp = new int[4];
             for (int i=0; i<temp.length; i++){
-                temp[i] = Dado.lancia();
+                temp[i] = Dice.roll();
                 if (temp[i] == 6)
                     temp[i] = -6;
                 somma += temp[i];
@@ -91,7 +91,7 @@ public class Screen100Metri extends Screen{
             this.suspance(start + "\n" + wait , 400);
             temp = new int[4];
             for (int i=0; i<temp.length; i++){
-                temp[i] = Dado.lancia();
+                temp[i] = Dice.roll();
                 if (temp[i] == 6)
                     temp[i] = -6;
                 //somma += temp[i];
@@ -122,9 +122,9 @@ public class Screen100Metri extends Screen{
         somma += parziale;
         this.suspance("Calcolo punteggio" , 500);
         this.clearScreen();
-        System.out.println(currentPlayer.getNome() + " ha totalizzato " + somma + " punti in questa disciplina");
-        currentPlayer.addTempPunteggio(somma);
-        currentPlayer.addPunteggio(somma);
+        System.out.println(currentPlayer.getName() + " ha totalizzato " + somma + " punti in questa disciplina");
+        currentPlayer.addTempPoints(somma);
+        currentPlayer.addPoints(somma);
         System.out.println("Premi invio per continuare");
         this.waitUserInput();
 

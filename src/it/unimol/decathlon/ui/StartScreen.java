@@ -5,8 +5,8 @@ import it.unimol.decathlon.app.*;
 public class StartScreen extends Screen {
 
     public StartScreen() {
-        this.playerManager = GestoreGiocatori.getInstance();
-        this.disciplina = null;
+        this.playerManager = PlayerManager.getInstance();
+        this.discipline = null;
     }
 
     public void start(){
@@ -57,7 +57,7 @@ public class StartScreen extends Screen {
                 System.out.print("Inserisci nome del giocaotore " + (i+1) + ": ");
                 s = this.inputString();
                 try {
-                    this.playerManager.addGiocatore(new Giocatore(s));
+                    this.playerManager.addPlayer(new Player(s));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     contained = true;

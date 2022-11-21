@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.*;
 
 public abstract class Screen implements Serializable {
-    protected GestoreGiocatori playerManager;
-    protected Disciplina disciplina;
+    protected PlayerManager playerManager;
+    protected Discipline discipline;
 
     protected final String FILENAME = "mainMenu.bin";
 
@@ -44,12 +44,12 @@ public abstract class Screen implements Serializable {
 
 
     public boolean isFinished() {
-        return this.disciplina.getFinished();
+        return this.discipline.getFinished();
     }
 
 
-    public Disciplina getDisciplina() {
-        return this.disciplina;
+    public Discipline getDisciplina() {
+        return this.discipline;
     }
 
 
@@ -70,8 +70,8 @@ public abstract class Screen implements Serializable {
     public void getEnding() {
         this.suspance("Calcolo vincitore in corso, attendi" , 700);
         this.clearScreen();
-        System.out.println(this.disciplina.getPodio() +"\n");
-        System.out.println("Il vincitore della disciplina  \"" + this.disciplina.getNome() + "\" e' " + this.disciplina.getWinner() + " punti!");
+        System.out.println(this.discipline.getPodium() +"\n");
+        System.out.println("Il vincitore della disciplina  \"" + this.discipline.getName() + "\" e' " + this.discipline.getWinner() + " punti!");
         System.out.print("Premi invio per continuare");
         this.waitUserInput();
     }
