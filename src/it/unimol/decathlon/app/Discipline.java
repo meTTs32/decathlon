@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Discipline implements Serializable {
     private PlayerManager playerManager;
-    private boolean finished;
+
     private Set<Player> pastPlayers;
     private String disciplineName;
 
@@ -14,7 +14,6 @@ public class Discipline implements Serializable {
     public Discipline(String nome) {
         this.playerManager = PlayerManager.getInstance();
         this.disciplineName = nome;
-        this.finished = false;
         this.pastPlayers = new HashSet<>();
     }
 
@@ -22,16 +21,14 @@ public class Discipline implements Serializable {
         return this.disciplineName;
     }
 
-    public boolean getFinished() {
+    /*public boolean getFinished() {
         return this.finished;
-    }
+    }*/
 
-    public void setFinished(boolean f) {
-        this.finished = f;
-    }
+
 
     public boolean isFinished() {
-        Set<Player> currentPlayers = new HashSet<>(this.playerManager.getList());
+        Set<Player> currentPlayers = new HashSet<>(this.playerManager.getBoard());
         return this.pastPlayers.equals(currentPlayers);
     }
 
@@ -42,7 +39,7 @@ public class Discipline implements Serializable {
 
     public Player getCurrentPlayer() {
         Random r = new Random();
-        int index = this.playerManager.getList().size();
+        int index = this.playerManager.getBoard().size();
         Player currentPlayer;
         do {
             currentPlayer = this.playerManager.getPlayer(r.nextInt(index));
@@ -56,20 +53,21 @@ public class Discipline implements Serializable {
         this.playerManager.tempSort();
         String output = "";
         int index;
-        if(this.playerManager.getList().size()<3) {
-            for(Player g : this.playerManager.getList()){
-                index = this.playerManager.getList().indexOf(g) + 1;
+
+        if(this.playerManager.getBoard().size()<3) {
+            for(Player g : this.playerManager.getBoard()){
+                index = this.playerManager.getBoard().indexOf(g) + 1;
                 output += index + ") " + g.tempString() + "\n";
             }
-            return output;
-        }
-
-        for(int i=0; i<3; i++)
+        }else for(int i=0; i<3; i++)
             output += i+1 + ") " + this.playerManager.getPlayer(i).tempString() + "\n";
+
+        output+= "\nIl vincitore della disciplina è " + this.getWinner() + " punti!\n";
+
         return output;
     }
 
-    public String getWinner() {
+    private String getWinner() {
         return this.playerManager.getPlayer(0).tempString();
     }
 

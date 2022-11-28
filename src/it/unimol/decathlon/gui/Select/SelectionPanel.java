@@ -24,7 +24,7 @@ public class SelectionPanel extends JPanel {
         //creazione dello spinner
         JSpinner playersSpinner = new JSpinner(new SpinnerNumberModel(2, 2, 8, 1));
         playersSpinner.setEditor(new JSpinner.DefaultEditor(playersSpinner));
-        JOptionPane.showMessageDialog(this, playersSpinner, "Seleziona il numero di giocatori", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, playersSpinner, "QUANTI GIOCATORI?", JOptionPane.PLAIN_MESSAGE);
 
         this.add(new JLabel("Inserisci i nomi dei giocatori"),new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NORTH, new Insets(5, 5, 0, 5), 0, 0));
 

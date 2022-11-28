@@ -44,7 +44,7 @@ public abstract class Screen implements Serializable {
 
 
     public boolean isFinished() {
-        return this.discipline.getFinished();
+        return this.discipline.isFinished();
     }
 
 
@@ -71,7 +71,7 @@ public abstract class Screen implements Serializable {
         this.suspance("Calcolo vincitore in corso, attendi" , 700);
         this.clearScreen();
         System.out.println(this.discipline.getPodium() +"\n");
-        System.out.println("Il vincitore della disciplina  \"" + this.discipline.getName() + "\" e' " + this.discipline.getWinner() + " punti!");
+//        System.out.println("Il vincitore della disciplina  \"" + this.discipline.getName() + "\" e' " + this.discipline.getWinner() + " punti!");
         System.out.print("Premi invio per continuare");
         this.waitUserInput();
     }

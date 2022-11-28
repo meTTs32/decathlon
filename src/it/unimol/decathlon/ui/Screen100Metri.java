@@ -29,7 +29,6 @@ public class Screen100Metri extends Screen{
 
         this.clearScreen();
         this.getEnding();
-        this.discipline.setFinished(true);
     }
 
 
@@ -123,8 +122,8 @@ public class Screen100Metri extends Screen{
         this.suspance("Calcolo punteggio" , 500);
         this.clearScreen();
         System.out.println(currentPlayer.getName() + " ha totalizzato " + somma + " punti in questa disciplina");
-        currentPlayer.addTempPoints(somma);
-        currentPlayer.addPoints(somma);
+        currentPlayer.addTempScore(somma);
+        currentPlayer.addScore(somma);
         System.out.println("Premi invio per continuare");
         this.waitUserInput();
 

@@ -7,13 +7,13 @@ import java.util.*;
 
 public class PlayerManager implements Serializable {
 
-    private List<Player> classifica;
+    private List<Player> leaderboard;
     private static PlayerManager instance;
 
     private PlayerManager() {
-        this.classifica = new ArrayList<>();
+        this.leaderboard = new ArrayList<>();
     }
-    private PlayerManager(PlayerManager g) { this.classifica = new ArrayList<>(g.getList()); }
+    private PlayerManager(PlayerManager g) { this.leaderboard = new ArrayList<>(g.getBoard()); }
 
     public static PlayerManager getInstance() {
         if (instance == null)
@@ -30,45 +30,32 @@ public class PlayerManager implements Serializable {
         if(this.contains(g.getName()))
             throw new DuplicatePlayerException();
         else
-            this.classifica.add(g);
+            this.leaderboard.add(g);
     }
 
     public Player getPlayer(int i) {
-        return this.classifica.get(i);
+        return this.leaderboard.get(i);
     }
 
     public void resetTemp() {
-        for (Player g : this.classifica){
-            g.setTempPoints(0);
+        for (Player g : this.leaderboard){
+            g.setTempScore(0);
         }
     }
-
-    public List<Player> getList() {
-        return this.classifica;
+    public List<Player> getBoard() {
+        return this.leaderboard;
     }
 
     private void sort() {
-        Collections.sort(this.classifica);
+        Collections.sort(this.leaderboard);
     }
 
     public void tempSort() {
-        Collections.sort(this.classifica, (p1, p2) -> Integer.compare(p2.getTempPoints(), p1.getTempPoints()));
+        Collections.sort(this.leaderboard, (p1, p2) -> Integer.compare(p2.getTempScore(), p1.getTempScore()));
     }
-
-    public String toString() {
-        this.sort();
-        String output = "";
-        if(this.classifica.size() == 0){
-            return "Nessun giocatore";
-        }
-        for(int i=0; i<this.classifica.size(); i++)
-            output += i+1 + ") " + this.getPlayer(i).toString() + "\n";
-        return output;
-    }
-
 
     public boolean contains(String g) {
-        for (Player p : this.classifica) {
+        for (Player p : this.leaderboard) {
             if(p.getName().equals(g))
                 return true;
         }
@@ -77,6 +64,17 @@ public class PlayerManager implements Serializable {
     }
 
     public void reset() {
-        this.classifica.clear();
+        this.leaderboard.clear();
+    }
+
+    public String toString() {
+        this.sort();
+        String output = "";
+        if(this.leaderboard.size() == 0){
+            return "Nessun giocatore";
+        }
+        for(int i = 0; i<this.leaderboard.size(); i++)
+            output += i+1 + ") " + this.getPlayer(i).toString() + "\n";
+        return output;
     }
 }

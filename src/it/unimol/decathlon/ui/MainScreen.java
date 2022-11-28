@@ -31,7 +31,7 @@ public class MainScreen extends Screen{
 
             } catch (Exception e) {}
         } else {
-            this.disciplineList = new ArrayList<Screen>();
+            this.disciplineList = new ArrayList<>();
             this.currentDiscipline = "";
             this.playerManager = PlayerManager.getInstance();
         }
@@ -76,7 +76,7 @@ public class MainScreen extends Screen{
     private void stampaRecap(List<Screen> lista) {
         String output = "Discipline:\n";
         for(Screen s : lista) {
-            if(s.getDisciplina().getFinished()) {
+            if(s.getDisciplina().isFinished()) {
                 output+= "#    " + s.getDisciplina().getName() + "\n";
             } else if(this.currentDiscipline.equals(s.getDisciplina().getName())) {
                 output += "*    " + this.currentDiscipline  + "\n";
@@ -108,7 +108,7 @@ public class MainScreen extends Screen{
 
         try (
                 FileOutputStream fos = new FileOutputStream(FILENAME);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                ObjectOutputStream oos = new ObjectOutputStream(fos)
         ) {
             oos.writeObject(obj);
         } catch (Exception e) {}

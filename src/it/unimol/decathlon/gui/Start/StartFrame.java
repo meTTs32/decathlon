@@ -6,7 +6,7 @@ public class StartFrame extends JFrame {
 
     private static StartFrame instance;
     private StartFrame() {
-        super("BENVENUT* AL DECATHLON!");
+        super("BENVENUTI AL DECATHLON!");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 110);
         this.setResizable(false);

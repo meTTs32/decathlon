@@ -21,19 +21,19 @@ public class Player implements Comparable<Player>, Serializable {
         }
     }
 
-    public void addPoints(int punti) {
+    public void addScore(int punti) {
         this.points += punti;
     }
 
-    public void addTempPoints(int punti) {
+    public void addTempScore(int punti) {
         this.tempPoints += punti;
     }
 
-    public void setTempPoints(int punti) {
+    public void setTempScore(int punti) {
         this.tempPoints = punti;
     }
 
-    public int getTempPoints() {
+    public int getTempScore() {
         return this.tempPoints;
     }
 
@@ -42,8 +42,8 @@ public class Player implements Comparable<Player>, Serializable {
     }
 
     @Override
-    public String toString() { return this.nome + ": " + this.points; }
-    public String tempString() { return this.nome + ": " + this.tempPoints; }
+    public String toString() { return this.nome + " : " + this.points; }
+    public String tempString() { return this.nome + " : " + this.tempPoints; }
 
 
     @Override

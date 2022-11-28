@@ -22,7 +22,4 @@ public class MainFrame extends JFrame {
         return instance;
     }
 
-    /*public void retitle(String text){
-        this.setTitle(text);
-    }*/
 }
