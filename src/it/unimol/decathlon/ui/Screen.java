@@ -48,7 +48,7 @@ public abstract class Screen implements Serializable {
     }
 
 
-    public Discipline getDisciplina() {
+    public Discipline getDiscipline() {
         return this.discipline;
     }
 

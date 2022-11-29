@@ -9,8 +9,16 @@ import java.util.Arrays;
 
 public class Panel100m extends DisciplinePanel {
 
+    private final String ISTRUZIONI =
+            "Ogni giocatore lancia quattro dadi alla volta. Se non è soddisfatto del risultato, può riprovare diverse volte, " +
+            "finché non decide di congelare i primi quattro dadi. Successivamente, il giocatore lancia i quattro dadi " +
+            "restanti e procede alla stessa maniera. In totale, il giocatore può decidere di rilanciare i dadi " +
+            "(senza congelarli) per 5 volte. Per calcolare il punteggio, si sommano i punteggi ottenuti sui vari dadi. " +
+            "I 6, tuttavia, valgono -6.";
+
     public Panel100m(){
         this.discipline = new Discipline("100 metri");
+        this.discipline.setInstructions(ISTRUZIONI);
         this.build();
 
     }

@@ -11,10 +11,10 @@ import static javax.swing.SwingUtilities.getWindowAncestor;
 public abstract class DisciplinePanel extends Panel {
 
     protected Discipline discipline;
-
     protected void build(){
         super.build();
-        this.setText("Disciplina corrente: " + this.discipline.getName() + "\n");
+        this.setText("Disciplina corrente: " + this.discipline.getName() + "\n\nISTRUZIONI:\n" + this.discipline.getInstructions());
+
         //todo: inserire le istruzioni della disciplina a schermo
         button1.setText("INIZIA DISCIPLINA");
         button2.setText("TERMINA DISCIPLINA");

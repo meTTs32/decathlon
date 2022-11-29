@@ -69,19 +69,19 @@ public class MainScreen extends Screen{
     }
 
     private void setCurrent(Screen s) {
-        this.currentDiscipline = s.getDisciplina().getName();
+        this.currentDiscipline = s.getDiscipline().getName();
 
     }
 
     private void stampaRecap(List<Screen> lista) {
         String output = "Discipline:\n";
         for(Screen s : lista) {
-            if(s.getDisciplina().isFinished()) {
-                output+= "#    " + s.getDisciplina().getName() + "\n";
-            } else if(this.currentDiscipline.equals(s.getDisciplina().getName())) {
+            if(s.isFinished()) {
+                output+= "#    " + s.getDiscipline().getName() + "\n";
+            } else if(this.currentDiscipline.equals(s.getDiscipline().getName())) {
                 output += "*    " + this.currentDiscipline  + "\n";
             } else {
-                output += "     " + s.getDisciplina().getName() + "\n";
+                output += "     " + s.getDiscipline().getName() + "\n";
             }
         }
         System.out.println(output + "\n" + this.playerManager.toString() );

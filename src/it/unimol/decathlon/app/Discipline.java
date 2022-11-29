@@ -10,28 +10,32 @@ public class Discipline implements Serializable {
     private Set<Player> pastPlayers;
     private String disciplineName;
 
+    private String instructions;
+
 
     public Discipline(String nome) {
         this.playerManager = PlayerManager.getInstance();
         this.disciplineName = nome;
         this.pastPlayers = new HashSet<>();
+        this.instructions = "";
     }
 
     public String getName() {
         return this.disciplineName;
     }
 
-    /*public boolean getFinished() {
-        return this.finished;
-    }*/
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
 
-
+    public String getInstructions() {
+        return this.instructions;
+    }
 
     public boolean isFinished() {
         Set<Player> currentPlayers = new HashSet<>(this.playerManager.getBoard());
         return this.pastPlayers.equals(currentPlayers);
     }
-
 
     public boolean addPast(Player g){
         return this.pastPlayers.add(g);
