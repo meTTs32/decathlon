@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+
   database:
     image: mongo:latest
     container_name: database
@@ -24,11 +25,12 @@ services:
         - decathlon-network
     environment:
       - DISPLAY=169.254.19.97:0.0
-    links:
-      - database
+
+
 networks:
     decathlon-network:
       driver: bridge
+
 
 volumes:
     saved_data:
