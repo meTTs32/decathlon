@@ -1,6 +1,8 @@
 package it.unimol.decathlon.gui;
 
 
+import it.unimol.decathlon.app.Database;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,12 +16,13 @@ public abstract class Panel extends JPanel {
     protected JButton button1;
     protected JButton button2;
 
+    protected Database db;
+
 
 
     protected void build(){
 
-
-
+        this.db = Database.getInstance();
         this.setLayout(new GridBagLayout());
         this.textArea = new JTextArea();
         this.button1 = new JButton();

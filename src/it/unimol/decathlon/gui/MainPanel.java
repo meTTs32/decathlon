@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 
 public class MainPanel extends Panel {
 
@@ -48,11 +49,7 @@ public class MainPanel extends Panel {
 
         this.button1.addActionListener(e -> this.replace(this.disciplinePanels[this.currentDiscipline]));
         this.button2.addActionListener(e -> {
-
             JOptionPane.showMessageDialog(this, "Il vincitore è " + PlayerManager.getInstance().getPlayer(0).toString() + " punti!");
-            File f = new File(FILENAME);
-            if(f.exists())
-                f.delete();
             System.exit(0);
         });
 
