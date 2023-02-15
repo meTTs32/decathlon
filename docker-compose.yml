@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  database:
+    image: mongo:latest
+    container_name: database
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=automated
+    volumes:
+      - saved_data:/data/db
+    networks:
+        - decathlon-network
+    ports:
+      - "27017:27017"
+
+
+  maven:
+    container_name: decathlon
+    build: .
+    depends_on:
+      - database
+    networks:
+        - decathlon-network
+    environment:
+      - DISPLAY=169.254.19.97:0.0
+    links:
+      - database
+networks:
+    decathlon-network:
+      driver: bridge
+
+volumes:
+    saved_data:
+      driver: local
