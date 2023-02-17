@@ -2,9 +2,9 @@ name: Maven build
 
 on:
   push:
-    branches: $default-branch
+    branches: [ automated ]
   pull_request:
-    branches: $default-branch
+    branches: [ automated ]
 
 jobs:
   test: 
