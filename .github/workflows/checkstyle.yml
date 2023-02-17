@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Java Checkstyle and Bug spotting
 
 on:
   push:
