@@ -1,4 +1,4 @@
 # decathlon
 Multi-exam project variations
 
-- For Windows user, install Windows X Server
+- Windows user have to install Windows X Server in order to run the Docker image
