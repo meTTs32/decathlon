@@ -11,6 +11,9 @@ import static javax.swing.SwingUtilities.getWindowAncestor;
 public abstract class DisciplinePanel extends Panel {
 
     protected Discipline discipline;
+
+    protected int time = 180;
+
     protected void build(){
         super.build();
         this.setText("Disciplina corrente: " + this.discipline.getName() + "\n\nISTRUZIONI:\n" + this.discipline.getInstructions());

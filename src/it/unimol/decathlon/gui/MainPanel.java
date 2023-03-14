@@ -31,7 +31,7 @@ public class MainPanel extends Panel {
 
     private MainPanel(){
 
-        //inizializazzione componenti backend;
+        //inizializazzione componenti applicativi;
         this.disciplinePanels = new DisciplinePanel[2];
         this.disciplinePanels[0] = new Panel100m();
         this.disciplinePanels[1] = new Panel100m();

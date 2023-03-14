@@ -7,6 +7,8 @@ import it.unimol.decathlon.app.Player;
 import javax.swing.*;
 import java.util.Arrays;
 
+import static javax.swing.JOptionPane.*;
+
 public class Panel100m extends DisciplinePanel {
 
     private final String ISTRUZIONI =
@@ -16,9 +18,21 @@ public class Panel100m extends DisciplinePanel {
             "(senza congelarli) per 5 volte. Per calcolare il punteggio, si sommano i punteggi ottenuti sui vari dadi. " +
             "I 6, tuttavia, valgono -6.";
 
+    private int temp;
+
+    private int[] rolls;
+
+    private int rerolls;
+
+    private boolean reroll;
+
+
     public Panel100m(){
+
         this.discipline = new Discipline("100 metri");
+
         this.discipline.setInstructions(ISTRUZIONI);
+
         this.build();
 
     }
@@ -26,42 +40,95 @@ public class Panel100m extends DisciplinePanel {
 
 
     protected void turn(Player p){
-        int rerolls = 5;
-        rerolls = this.turnMechanic(p,rerolls);
-        this.turnMechanic(p,rerolls);
+
+        this.time = 180;
+
+        Thread timer = new Thread(() -> {
+            while (this.time > 0) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+                this.time--;
+            }
+        });
+        timer.start();
+
+        this.rerolls = 5;
+        this.rerolls = this.turnMechanic(p);
+        this.turnMechanic(p);
+        timer.interrupt();
         this.appendText(p.getName() + " ha totalizzato " + p.getTempScore() + " punti\n");
 
     }
 
-    private int turnMechanic(Player p, int rerolls){
-        int temp;
-        boolean reroll;
-        int[] rolls;
+    private int turnMechanic(Player p) {
+
 
         do {
-            temp = 0;
-            reroll = true;
-            rolls = Dice.roll(4);
-            for (int i = 0; i < rolls.length; i++) {
-                if (rolls[i] == 6) {
-                    rolls[i] *= -1;
+            this.reroll = true;
+            this.temp = 0;
+            if (this.rerolls == -1){
+                this.rolls = new int[]{0,0,0,0};
+            } else {
+                this.rolls = Dice.roll(4);
+                for (int i = 0; i < this.rolls.length; i++) {
+                    if (this.rolls[i] == 6) {
+                        this.rolls[i] *= -1;
+                    }
+                    this.temp += this.rolls[i];
                 }
-                temp += rolls[i];
             }
-            if (rerolls > 0){
-                int option = JOptionPane.showConfirmDialog(this, "Hai tirato: " + Arrays.toString(rolls) + " per un totale di " + temp + " punti.\nVuoi rilanciare? (RILANCI RIMASTI: " + rerolls + ")", "Lancio", JOptionPane.YES_NO_OPTION);
-                if (option == JOptionPane.YES_OPTION)
-                    rerolls--;
-                else
+            if (this.rerolls > 0){
+
+                final JLabel label = new JLabel("<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>");
+                JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION);
+
+
+                Thread action = new Thread (() -> {
+                    while (true) {
+                        try {
+                            Thread.sleep(500);
+                            label.setText("<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>");
+                            if (this.time == 0) {
+                                panel.setValue(CLOSED_OPTION);
+                                panel.setVisible(false);
+                                break;
+                            }
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+
+                });
+
+                action.start();
+
+                panel.createDialog("RILANCIO").setVisible(true);
+                int option = (int) panel.getValue();
+
+                if (option == YES_OPTION) {
+                    this.rerolls--;
+                } else if (option == NO_OPTION){
                     reroll = false;
+                } else {
+                    this.rerolls = -1;
+                    this.temp = 0;
+                    this.rolls = new int[]{0, 0, 0, 0};
+                    this.appendText(p.getName() + " ha saltato il turno\n");
+                }
+
             }
-        } while (rerolls > 0 && reroll);
+        } while (this.rerolls > 0 && reroll);
 
-        this.appendText("Lancio: " + Arrays.toString(rolls) + " (CONGELATO)\n" );
+        if (this.rerolls > -1){
+            this.appendText("Lancio: " + Arrays.toString(this.rolls) + " (CONGELATO)\n");
+        }
 
-        p.addTempScore(temp);
-        p.addScore(temp);
+        p.addTempScore(this.temp);
+        p.addScore(this.temp);
 
-        return rerolls;
+        return this.rerolls;
     }
 }
