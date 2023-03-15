@@ -42,8 +42,8 @@ public class MainPanel extends Panel {
         this.build();
         this.addPropertyChangeListener("instance", e->this.setup());
 
-        button1.setText("AVVIA DISCIPLINA");
-        button2.setText("TERMINA PARTITA");
+        this.button1.setText("AVVIA DISCIPLINA");
+        this.button2.setText("TERMINA PARTITA");
 
 
         this.button1.addActionListener(e -> this.replace(this.disciplinePanels[this.currentDiscipline]));
@@ -51,9 +51,11 @@ public class MainPanel extends Panel {
 
             JOptionPane.showMessageDialog(this, "Il vincitore è " + PlayerManager.getInstance().getPlayer(0).toString() + " punti!");
             File f = new File(FILENAME);
+            boolean del = false;
             if(f.exists())
-                f.delete();
-            System.exit(0);
+                del = f.delete();
+
+            System.exit(del ? 0 : 1);
         });
 
 

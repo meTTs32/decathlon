@@ -13,9 +13,6 @@ import static javax.swing.SwingUtilities.getWindowAncestor;
 public class SelectionPanel extends JPanel {
 
     private static SelectionPanel instance;
-    private JButton OKButton;
-
-
 
     private SelectionPanel() {
 
@@ -38,9 +35,9 @@ public class SelectionPanel extends JPanel {
         }
 
         //setup bottone
-        this.OKButton = new JButton("OK");
-        this.OKButton.addActionListener(e -> this.ok());
-        this.add(this.OKButton, new GridBagConstraints(0, players + 1, 2, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NORTH, new Insets(10, 5, 5, 5), 0, 0));
+        JButton OKButton = new JButton("OK");
+        OKButton.addActionListener(e -> this.ok());
+        this.add(OKButton, new GridBagConstraints(0, players + 1, 2, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NORTH, new Insets(10, 5, 5, 5), 0, 0));
 
     }
 

@@ -11,27 +11,22 @@ import static javax.swing.JOptionPane.*;
 
 public class Panel100m extends DisciplinePanel {
 
-    private final String ISTRUZIONI =
-            "Ogni giocatore lancia quattro dadi alla volta. Se non è soddisfatto del risultato, può riprovare diverse volte, " +
-            "finché non decide di congelare i primi quattro dadi. Successivamente, il giocatore lancia i quattro dadi " +
-            "restanti e procede alla stessa maniera. In totale, il giocatore può decidere di rilanciare i dadi " +
-            "(senza congelarli) per 5 volte. Per calcolare il punteggio, si sommano i punteggi ottenuti sui vari dadi. " +
-            "I 6, tuttavia, valgono -6.";
-
     private int temp;
 
     private int[] rolls;
 
     private int rerolls;
 
-    private boolean reroll;
-
 
     public Panel100m(){
 
         this.discipline = new Discipline("100 metri");
 
-        this.discipline.setInstructions(ISTRUZIONI);
+        this.discipline.setInstructions("Ogni giocatore lancia quattro dadi alla volta. Se non è soddisfatto del risultato, può riprovare diverse volte, " +
+                "finché non decide di congelare i primi quattro dadi. Successivamente, il giocatore lancia i quattro dadi " +
+                "restanti e procede alla stessa maniera. In totale, il giocatore può decidere di rilanciare i dadi " +
+                "(senza congelarli) per 5 volte. Per calcolare il punteggio, si sommano i punteggi ottenuti sui vari dadi. " +
+                "I 6, tuttavia, valgono -6.");
 
         this.build();
 
@@ -65,9 +60,10 @@ public class Panel100m extends DisciplinePanel {
 
     private int turnMechanic(Player p) {
 
+        boolean reroll;
 
         do {
-            this.reroll = true;
+            reroll = true;
             this.temp = 0;
             if (this.rerolls == -1){
                 this.rolls = new int[]{0,0,0,0};
@@ -83,7 +79,7 @@ public class Panel100m extends DisciplinePanel {
             if (this.rerolls > 0){
 
                 final JLabel label = new JLabel("<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>");
-                JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION);
+                JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION, null, null, NO_OPTION);
 
 
                 Thread action = new Thread (() -> {
@@ -106,7 +102,15 @@ public class Panel100m extends DisciplinePanel {
                 action.start();
 
                 panel.createDialog("RILANCIO").setVisible(true);
-                int option = (int) panel.getValue();
+
+                int option;
+
+                try {
+                    option = (int) panel.getValue();
+                } catch (NullPointerException e){
+                    option = NO_OPTION;
+                }
+
 
                 if (option == YES_OPTION) {
                     this.rerolls--;

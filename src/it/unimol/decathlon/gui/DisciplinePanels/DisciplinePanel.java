@@ -12,7 +12,7 @@ public abstract class DisciplinePanel extends Panel {
 
     protected Discipline discipline;
 
-    protected int time = 180;
+    protected int time;
 
     protected void build(){
         super.build();

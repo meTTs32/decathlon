@@ -1,10 +1,8 @@
 package it.unimol.decathlon;
 
-import it.unimol.decathlon.gui.Start.StartFrame;
+import it.unimol.decathlon.gui.LoadManager;
 
 public class MainGUI {
-    public static void main(String[] args) {
-        StartFrame.getInstance().setVisible(true);
-    }
+    public static void main(String[] args) { LoadManager.start();}
 }
 
