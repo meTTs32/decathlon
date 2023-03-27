@@ -63,19 +63,23 @@ public class Panel100m extends DisciplinePanel {
         boolean reroll;
 
         do {
+
             reroll = true;
             this.temp = 0;
-            if (this.rerolls == -1){
+
+            if (this.rerolls == -1)
                 this.rolls = new int[]{0,0,0,0};
-            } else {
+            else {
                 this.rolls = Dice.roll(4);
                 for (int i = 0; i < this.rolls.length; i++) {
-                    if (this.rolls[i] == 6) {
+
+                    if (this.rolls[i] == 6)
                         this.rolls[i] *= -1;
-                    }
+
                     this.temp += this.rolls[i];
                 }
             }
+
             if (this.rerolls > 0){
 
                 final JLabel label = new JLabel("<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>");
@@ -86,12 +90,15 @@ public class Panel100m extends DisciplinePanel {
                     while (true) {
                         try {
                             Thread.sleep(500);
+
                             label.setText("<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>");
+
                             if (this.time == 0) {
                                 panel.setValue(CLOSED_OPTION);
                                 panel.setVisible(false);
                                 break;
                             }
+
                         } catch (InterruptedException e) {
                             break;
                         }
@@ -114,8 +121,10 @@ public class Panel100m extends DisciplinePanel {
 
                 if (option == YES_OPTION) {
                     this.rerolls--;
-                } else if (option == NO_OPTION){
+                    action.interrupt();
+                } else if (option == NO_OPTION) {
                     reroll = false;
+                    action.interrupt();
                 } else {
                     this.rerolls = -1;
                     this.temp = 0;
