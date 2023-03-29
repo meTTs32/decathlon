@@ -7,7 +7,6 @@ import it.unimol.decathlon.gui.Panel;
 
 
 import javax.swing.*;
-import java.util.Arrays;
 
 import static javax.swing.JOptionPane.CLOSED_OPTION;
 import static javax.swing.SwingUtilities.getWindowAncestor;
@@ -83,7 +82,7 @@ public abstract class DisciplinePanel extends Panel {
     }
 
     protected Thread timer(){
-        Thread timer = new Thread(() -> {
+        Thread time = new Thread(() -> {
             while (this.time > 0) {
                 try {
                     Thread.sleep(1000);
@@ -94,12 +93,12 @@ public abstract class DisciplinePanel extends Panel {
             }
         });
 
-        return timer;
+        return time;
     }
 
     protected Thread action(JLabel label, JOptionPane panel, String text){
 
-        Thread action = new Thread (() -> {
+        Thread act = new Thread (() -> {
             while (true) {
                 try {
                     Thread.sleep(500);
@@ -120,7 +119,7 @@ public abstract class DisciplinePanel extends Panel {
 
         });
 
-        return action;
+        return act;
     }
 
 }
