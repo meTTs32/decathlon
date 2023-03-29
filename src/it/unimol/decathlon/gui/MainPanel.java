@@ -3,7 +3,8 @@ package it.unimol.decathlon.gui;
 
 import it.unimol.decathlon.app.PlayerManager;
 import it.unimol.decathlon.gui.DisciplinePanels.DisciplinePanel;
-import it.unimol.decathlon.gui.DisciplinePanels.Panel100m;
+import it.unimol.decathlon.gui.DisciplinePanels.HundredMetersPanel;
+import it.unimol.decathlon.gui.DisciplinePanels.LongJumpPanel;
 
 
 import javax.swing.*;
@@ -32,9 +33,9 @@ public class MainPanel extends Panel {
     private MainPanel(){
 
         //inizializazzione componenti applicativi;
-        this.disciplinePanels = new DisciplinePanel[2];
-        this.disciplinePanels[0] = new Panel100m();
-        this.disciplinePanels[1] = new Panel100m();
+        this.disciplinePanels = new DisciplinePanel[1];
+//        this.disciplinePanels[0] = new HundredMetersPanel();
+        this.disciplinePanels[0] = new LongJumpPanel();
 
         //TODO: inserire le discipline nell'array
 

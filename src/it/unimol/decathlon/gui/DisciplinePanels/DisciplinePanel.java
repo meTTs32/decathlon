@@ -6,6 +6,10 @@ import it.unimol.decathlon.gui.MainPanel;
 import it.unimol.decathlon.gui.Panel;
 
 
+import javax.swing.*;
+import java.util.Arrays;
+
+import static javax.swing.JOptionPane.CLOSED_OPTION;
 import static javax.swing.SwingUtilities.getWindowAncestor;
 
 public abstract class DisciplinePanel extends Panel {
@@ -13,6 +17,14 @@ public abstract class DisciplinePanel extends Panel {
     protected Discipline discipline;
 
     protected int time;
+
+    protected int temp;
+
+    protected int[] rolls;
+
+    protected int rerolls;
+
+    protected boolean reroll;
 
     protected void build(){
         super.build();
@@ -70,5 +82,45 @@ public abstract class DisciplinePanel extends Panel {
         return this.discipline.getName();
     }
 
+    protected Thread timer(){
+        Thread timer = new Thread(() -> {
+            while (this.time > 0) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+                this.time--;
+            }
+        });
+
+        return timer;
+    }
+
+    protected Thread action(JLabel label, JOptionPane panel, String text){
+
+        Thread action = new Thread (() -> {
+            while (true) {
+                try {
+                    Thread.sleep(500);
+
+//                    label.setText("<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>");
+                    label.setText(text);
+
+                    if (this.time == 0) {
+                        panel.setValue(CLOSED_OPTION);
+                        panel.setVisible(false);
+                        break;
+                    }
+
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+
+        });
+
+        return action;
+    }
 
 }

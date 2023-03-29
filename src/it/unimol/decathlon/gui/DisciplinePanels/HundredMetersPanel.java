@@ -9,18 +9,12 @@ import java.util.Arrays;
 
 import static javax.swing.JOptionPane.*;
 
-public class Panel100m extends DisciplinePanel {
-
-    private int temp;
-
-    private int[] rolls;
-
-    private int rerolls;
+public class HundredMetersPanel extends DisciplinePanel {
 
 
-    public Panel100m(){
+    public HundredMetersPanel(){
 
-        this.discipline = new Discipline("100 metri");
+        this.discipline = new Discipline("100 METRI");
 
         this.discipline.setInstructions("Ogni giocatore lancia quattro dadi alla volta. Se non è soddisfatto del risultato, può riprovare diverse volte, " +
                 "finché non decide di congelare i primi quattro dadi. Successivamente, il giocatore lancia i quattro dadi " +
@@ -48,23 +42,23 @@ public class Panel100m extends DisciplinePanel {
                 this.time--;
             }
         });
+
+//        Thread timer = this.timer();
         timer.start();
 
         this.rerolls = 5;
-        this.rerolls = this.turnMechanic(p);
+        this.turnMechanic(p);
         this.turnMechanic(p);
         timer.interrupt();
         this.appendText(p.getName() + " ha totalizzato " + p.getTempScore() + " punti\n");
 
     }
 
-    private int turnMechanic(Player p) {
-
-        boolean reroll;
+    private void turnMechanic(Player p) {
 
         do {
 
-            reroll = true;
+            this.reroll = true;
             this.temp = 0;
 
             if (this.rerolls == -1)
@@ -83,17 +77,22 @@ public class Panel100m extends DisciplinePanel {
             if (this.rerolls > 0){
 
                 final JLabel label = new JLabel("<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>");
-                JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION, null, null, NO_OPTION);
-
+                JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION);
+//                String text = "<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>";
 
                 Thread action = new Thread (() -> {
                     while (true) {
                         try {
+
                             Thread.sleep(500);
 
                             label.setText("<html>" + Arrays.toString(this.rolls) + "  Totale: " + this.temp + " punti.<br/>Rilanciare? (" + this.rerolls + " rilanci rimasti)<br/>TEMPO RIMASTO : " + this.time + "</html>");
 
                             if (this.time == 0) {
+                                this.rerolls = -1;
+                                this.temp = 0;
+                                this.rolls = new int[]{0, 0, 0, 0};
+                                this.appendText(p.getName() + " ha saltato il turno\n");
                                 panel.setValue(CLOSED_OPTION);
                                 panel.setVisible(false);
                                 break;
@@ -105,7 +104,7 @@ public class Panel100m extends DisciplinePanel {
                     }
 
                 });
-
+//                  Thread action = this.action(label, panel,text);
                 action.start();
 
                 panel.createDialog("RILANCIO").setVisible(true);
@@ -119,21 +118,16 @@ public class Panel100m extends DisciplinePanel {
                 }
 
 
-                if (option == YES_OPTION) {
+                if (option == YES_OPTION)
                     this.rerolls--;
+                else
+                    this.reroll = false;
+
+                if(!action.isInterrupted())
                     action.interrupt();
-                } else if (option == NO_OPTION) {
-                    reroll = false;
-                    action.interrupt();
-                } else {
-                    this.rerolls = -1;
-                    this.temp = 0;
-                    this.rolls = new int[]{0, 0, 0, 0};
-                    this.appendText(p.getName() + " ha saltato il turno\n");
-                }
 
             }
-        } while (this.rerolls > 0 && reroll);
+        } while (this.rerolls > 0 && this.reroll);
 
         if (this.rerolls > -1){
             this.appendText("Lancio: " + Arrays.toString(this.rolls) + " (CONGELATO)\n");
@@ -141,7 +135,5 @@ public class Panel100m extends DisciplinePanel {
 
         p.addTempScore(this.temp);
         p.addScore(this.temp);
-
-        return this.rerolls;
     }
 }
