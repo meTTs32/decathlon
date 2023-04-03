@@ -21,23 +21,29 @@ public class SelectionPanel extends JPanel {
         //creazione dello spinner
         JSpinner playersSpinner = new JSpinner(new SpinnerNumberModel(2, 2, 8, 1));
         playersSpinner.setEditor(new JSpinner.DefaultEditor(playersSpinner));
-        JOptionPane.showMessageDialog(this, playersSpinner, "QUANTI GIOCATORI?", JOptionPane.PLAIN_MESSAGE);
+        JPanel panel = getjSpinnerPanel(playersSpinner, new JLabel("Inserisci il numero di giocatori"));
+        JOptionPane pane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
+        pane.createDialog(this,"QUANTI GIOCATORI?").setVisible(true);
 
-        this.add(new JLabel("Inserisci i nomi dei giocatori"),new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NORTH, new Insets(5, 5, 0, 5), 0, 0));
+        if(pane.getValue() == null)
+            System.exit(0); //se viene premuto il tasto "X" viene chiuso il programma
+        else {
+            this.add(new JLabel("Inserisci i nomi dei giocatori"), new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NORTH, new Insets(5, 5, 0, 5), 0, 0));
 
-        //viene letto il valore dello spinner e viene aggiunto il rispettivo numero di Text Area
-        int players = Integer.parseInt(playersSpinner.getValue().toString());
-        for(int i = 0; i < players; i++){
-            JLabel label = new JLabel("Giocatore " + (i + 1));
-            JTextField textField = new JTextField(15);
-            this.add(label, new GridBagConstraints(0, i+1, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NORTH, new Insets(10, 5, 5, 5), 0, 0));
-            this.add(textField, new GridBagConstraints(1, i+1, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NORTH, new Insets(10, 10, 5, 5), 0, 0));
+            //viene letto il valore dello spinner e viene aggiunto il rispettivo numero di Text Area
+            int players = (int) playersSpinner.getValue();
+            for (int i = 0; i < players; i++) {
+                JLabel label = new JLabel("Giocatore " + (i + 1));
+                JTextField textField = new JTextField(15);
+                this.add(label, new GridBagConstraints(0, i + 1, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NORTH, new Insets(10, 5, 5, 5), 0, 0));
+                this.add(textField, new GridBagConstraints(1, i + 1, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NORTH, new Insets(10, 10, 5, 5), 0, 0));
+            }
+
+            //setup bottone
+            JButton OKButton = new JButton("OK");
+            OKButton.addActionListener(e -> this.ok());
+            this.add(OKButton, new GridBagConstraints(0, players + 1, 2, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NORTH, new Insets(10, 5, 5, 5), 0, 0));
         }
-
-        //setup bottone
-        JButton OKButton = new JButton("OK");
-        OKButton.addActionListener(e -> this.ok());
-        this.add(OKButton, new GridBagConstraints(0, players + 1, 2, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NORTH, new Insets(10, 5, 5, 5), 0, 0));
 
     }
 
@@ -72,5 +78,14 @@ public class SelectionPanel extends JPanel {
             MainFrame.getInstance().setVisible(true);
         }
 
+    }
+
+
+    public static JPanel getjSpinnerPanel(JSpinner spinner, JLabel heightLabel) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panel.add(heightLabel, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        panel.add(spinner, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+        return panel;
     }
 }
