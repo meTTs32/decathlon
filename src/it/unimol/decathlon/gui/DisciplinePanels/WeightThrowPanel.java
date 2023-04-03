@@ -58,8 +58,8 @@ public class WeightThrowPanel extends DisciplinePanel {
                 dice.add(this.roll);
                 this.temp += this.roll;
                 attempts--;
-                label.setText("<html>Hai ottenuto " + this.roll + "<br/>TOTALE: " + this.temp + "<br/>DADI: "
-                        + Arrays.toString(dice.toArray()) + "<br/>TEMPO RIMASTO: " + this.time + "<br/> Vuoi rilanciare?" + "</html>");
+                label.setText("<html>Hai ottenuto " + this.roll + "<br/>DADI: " + Arrays.toString(dice.toArray()) +
+                        "<br/>TOTALE: " + this.temp + " punti<br/>TEMPO RIMASTO: " + this.time + "<br/> Vuoi rilanciare?" + "</html>");
             } else{
 
                 this.temp = 0;
@@ -85,12 +85,12 @@ public class WeightThrowPanel extends DisciplinePanel {
                             break;
 
                         }else if(this.roll!= 1) {
-                            label.setText("<html>Hai ottenuto " + this.roll + "<br/>TOTALE: " + this.temp + "<br/>DADI: "
-                                    + Arrays.toString(dice.toArray()) + "<br/>TEMPO RIMASTO: " + this.time + "<br/> Vuoi rilanciare?" + "</html>");
+                            label.setText("<html>Hai ottenuto " + this.roll + "<br/>DADI: " + Arrays.toString(dice.toArray()) +
+                                    "<br/>TOTALE: " + this.temp + " punti<br/>TEMPO RIMASTO: " + this.time + "<br/> Vuoi rilanciare?" + "</html>");
                         }
                         else {
                             label.setText("<html>Hai ottenuto 1, il tentativo è nullo." + "<br/>TEMPO RIMASTO: " + this.time +
-                                    "<br/> Vuoi rilanciare?" + "</html>");
+                                    "<br/>Vuoi rilanciare?" + "</html>");
                         }
 
                     } catch (InterruptedException e) {

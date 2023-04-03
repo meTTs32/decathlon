@@ -135,7 +135,7 @@ public class LongJumpPanel extends DisciplinePanel {
                 this.rolls = Dice.roll(this.rerolls);
                 JPanel panel = this.buildDialog(this.rolls, label);
 
-                JOptionPane option = new JOptionPane(panel, PLAIN_MESSAGE, YES_NO_OPTION);
+                JOptionPane option = new JOptionPane(panel, QUESTION_MESSAGE, YES_NO_OPTION);
 
                 Thread action = new Thread(() -> {
                     while (true){

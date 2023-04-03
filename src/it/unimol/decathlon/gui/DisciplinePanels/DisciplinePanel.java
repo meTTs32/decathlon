@@ -6,9 +6,6 @@ import it.unimol.decathlon.gui.MainPanel;
 import it.unimol.decathlon.gui.Panel;
 
 
-import javax.swing.*;
-
-import static javax.swing.JOptionPane.CLOSED_OPTION;
 import static javax.swing.SwingUtilities.getWindowAncestor;
 
 public abstract class DisciplinePanel extends Panel {

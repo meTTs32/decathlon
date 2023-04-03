@@ -35,7 +35,8 @@ public class MainPanel extends Panel {
         this.disciplinePanels = new DisciplinePanel[1];
 //        this.disciplinePanels[0] = new HundredMetersPanel();
 //        this.disciplinePanels[0] = new LongJumpPanel();
-        this.disciplinePanels[0] = new WeightThrowPanel();
+//        this.disciplinePanels[0] = new WeightThrowPanel();
+        this.disciplinePanels[0] = new HighJumpPanel();
 
         //TODO: inserire le discipline nell'array
 
