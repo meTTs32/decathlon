@@ -10,8 +10,8 @@ import static javax.swing.JOptionPane.*;
 
 public class LongJumpPanel extends DisciplinePanel {
 
-    private final JLabel errorlabel = new JLabel();
-    private final JOptionPane error = new JOptionPane(errorlabel, JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION);
+    private final JLabel errorLabel = new JLabel();
+    private final JOptionPane error = new JOptionPane(errorLabel, JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION);
     private int selected;
     public LongJumpPanel(){
 
@@ -69,7 +69,7 @@ public class LongJumpPanel extends DisciplinePanel {
                         label.setText("<html>TOTALE: " + this.temp + "/9<br/>TEMPO RIMASTO: " + this.time +
                                 "<br/>Rilanci? (scegli quali dadi congelare)</html>");
 
-                        errorlabel.setText("<html>Devi selezionare almeno un dado<br/>TEMPO RIMASTO: "
+                        errorLabel.setText("<html>Devi selezionare almeno un dado<br/>TEMPO RIMASTO: "
                                 + this.time + "</html>");
 
                         if(this.time == 0){
@@ -146,7 +146,7 @@ public class LongJumpPanel extends DisciplinePanel {
                             label.setText("<html>TOTALE: " + this.temp + "<br/>TEMPO RIMASTO: " + this.time +
                                     "<br/>Rilanci? (scegli quali dadi congelare)</html>");
 
-                            errorlabel.setText("<html>Devi selezionare almeno un dado<br/>TEMPO RIMASTO: "
+                            errorLabel.setText("<html>Devi selezionare almeno un dado<br/>TEMPO RIMASTO: "
                                     + this.time + "</html>");
 
                             if(this.time == 0){
@@ -157,10 +157,11 @@ public class LongJumpPanel extends DisciplinePanel {
                                     error.setValue(CLOSED_OPTION);
                                     error.setVisible(false);
 
-                                } else {
-                                    option.setValue(CLOSED_OPTION);
-                                    option.setVisible(false);
                                 }
+
+                                option.setValue(CLOSED_OPTION);
+                                option.setVisible(false);
+
                                 break;
                             }
 
@@ -173,7 +174,6 @@ public class LongJumpPanel extends DisciplinePanel {
                 action.start();
 
                 do {
-
 
                     option.createDialog("SALTO").setVisible(true);
                     this.turnMechanic(option, panel);
@@ -227,7 +227,7 @@ public class LongJumpPanel extends DisciplinePanel {
             }
 
             if (this.selected == 0) {
-                errorlabel.setText("<html>Devi selezionare almeno un dado<br/>TEMPO RIMASTO: " + this.time + "</html>");
+                errorLabel.setText("<html>Devi selezionare almeno un dado<br/>TEMPO RIMASTO: " + this.time + "</html>");
                 error.createDialog("ERRORE").setVisible(true);
             }
         } else if (result == DEFAULT_OPTION || result == JOptionPane.NO_OPTION)
