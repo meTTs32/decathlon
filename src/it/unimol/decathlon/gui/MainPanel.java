@@ -36,7 +36,8 @@ public class MainPanel extends Panel {
 //        this.disciplinePanels[0] = new LongJumpPanel();
 //        this.disciplinePanels[0] = new WeightThrowPanel();
 //        this.disciplinePanels[0] = new HighJumpPanel();
-        this.disciplinePanels[0] = new FourHundredMetersPanel();
+//        this.disciplinePanels[0] = new FourHundredMetersPanel();
+        this.disciplinePanels[0] = new HurdlesPanel();
         //TODO: inserire le discipline nell'array
 
         //inizializzazione componenti grafici
