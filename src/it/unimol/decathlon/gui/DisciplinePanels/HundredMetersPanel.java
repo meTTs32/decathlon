@@ -67,7 +67,7 @@ public class HundredMetersPanel extends DisciplinePanel {
                 JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION);
 
                 Thread action = new Thread (() -> {
-                    while (true) {
+                    while(true) {
                         try {
 
                             Thread.sleep(500);
