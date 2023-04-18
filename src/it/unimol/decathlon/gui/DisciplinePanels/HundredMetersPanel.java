@@ -10,8 +10,6 @@ import static javax.swing.JOptionPane.*;
 
 public class HundredMetersPanel extends DisciplinePanel {
 
-    private int attempts;
-
     public HundredMetersPanel(){
 
         super("100 METRI",
@@ -63,7 +61,7 @@ public class HundredMetersPanel extends DisciplinePanel {
 
             if (this.rerolls > 0){
 
-                JLabel label = new JLabel("<html> LANCIO " + this.attempts + "<br/>DADI: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + this.rerolls + " rilanci rimasti)</html>");
+                JLabel label = new JLabel("<html>DADI: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + this.rerolls + " rilanci rimasti)</html>");
                 JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION);
 
                 Thread action = new Thread (() -> {
@@ -72,7 +70,7 @@ public class HundredMetersPanel extends DisciplinePanel {
 
                             Thread.sleep(500);
 
-                            label.setText("<html> LANCIO " + this.attempts + "<br/>DADI: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + this.rerolls + " rilanci rimasti)</html>");
+                            label.setText("<html>DADI: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + this.rerolls + " rilanci rimasti)</html>");
 
                             if (this.time == 0) {
                                 this.rerolls = -1;
@@ -94,7 +92,7 @@ public class HundredMetersPanel extends DisciplinePanel {
 
                 action.start();
 
-                panel.createDialog("RILANCIO").setVisible(true);
+                panel.createDialog("LANCIO " + this.attempts).setVisible(true);
 
                 int option;
 
@@ -117,7 +115,7 @@ public class HundredMetersPanel extends DisciplinePanel {
         } while (this.rerolls > 0 && this.reroll);
 
         if (this.rerolls > -1){
-            this.appendText("Lancio: " + Arrays.toString(this.rolls) + " (CONGELATO)\n");
+            this.appendText("Lancio " + this.attempts + ": " + Arrays.toString(this.rolls) + " (CONGELATO)\n");
         }
 
         p.addTempScore(this.temp);

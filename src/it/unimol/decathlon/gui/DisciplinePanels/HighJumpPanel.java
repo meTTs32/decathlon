@@ -52,8 +52,6 @@ public class HighJumpPanel extends DisciplinePanel {
 
             for (int i : this.rolls = Dice.roll(5)) {
                 this.temp += i;
-                if(this.rerolls == 2)
-                    this.temp = 30;
             }
 
             JOptionPane panel = new JOptionPane(label, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
@@ -86,7 +84,7 @@ public class HighJumpPanel extends DisciplinePanel {
                 time.interrupt();
 
                 if (this.temp >= height) {
-                    label.setText("<html>ALTEZZA FISSATA: " + height + "<br/>LANCIO: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti<br/>Hai superato il lancio</html>");
+                    label.setText("<html>ALTEZZA FISSATA: " + height + "<br/>LANCIO: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti<br/>HAI SUPERATO IL LANCIO!</html>");
                     this.reroll = false;
                 } else {
                     label.setText("<html>ALTEZZA FISSATA: " + height + "<br/>LANCIO: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti<br/>Hai esaurito i tentativi</html>");
@@ -97,7 +95,7 @@ public class HighJumpPanel extends DisciplinePanel {
 
             this.rerolls++;
 
-            panel.createDialog(null, "SALTO IN ALTO - TENTATIVO " + this.rerolls).setVisible(true);
+            panel.createDialog(this, "SALTO IN ALTO - TENTATIVO " + this.rerolls).setVisible(true);
 
 
             if(!action.isInterrupted())
@@ -115,9 +113,9 @@ public class HighJumpPanel extends DisciplinePanel {
     private int selectHeight() {
         JSpinner heightSpinner = new JSpinner(new SpinnerNumberModel(5, 5, 30, 1));
         heightSpinner.setEditor(new JSpinner.DefaultEditor(heightSpinner));
-        JPanel panel = getjSpinnerPanel(heightSpinner, new JLabel("Inserisci l'altezza obiettivo: "));
+        JPanel panel = getjSpinnerPanel(heightSpinner, new JLabel("Seleziona l'altezza obiettivo: "));
         JOptionPane pane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
-        pane.createDialog(null, "ALTEZZA").setVisible(true);
+        pane.createDialog(this, "ALTEZZA").setVisible(true);
 
         if (pane.getValue() == null)
             return 0;

@@ -24,6 +24,8 @@ public abstract class DisciplinePanel extends Panel {
 
     protected boolean reroll;
 
+    protected int attempts;
+
 
 
     public DisciplinePanel(String disciplineName, String instructions){

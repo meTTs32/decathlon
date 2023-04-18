@@ -8,32 +8,32 @@ import java.awt.*;
 
 import static javax.swing.JOptionPane.DEFAULT_OPTION;
 
-public class DiscusPanel extends DisciplinePanel{
+public class JavelinPanel extends DisciplinePanel{
 
     private final JLabel errorLabel = new JLabel();
     private final JOptionPane error = new JOptionPane(errorLabel, JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION);
     private int selected;
 
-    public DiscusPanel(){
-        super("LANCIO DEL DISCO",
-                "Il giocatore lancia 5 dadi. A ogni turno, il giocatore deve congelare almeno un dado e, se vuole, " +
-                        "può rilanciare i dadi restanti. Possono essere congelati soltanto i dadi con valore pari (2, 4, 6). " +
-                        "Se tutti i dadi lanciati o rilanciati sono dispari, il tentativo è nullo e il giocatore ottiene 0 punti in " +
-                        "totale. Il punteggio totale è dato dalla somma del valore dei dadi congelati.");
+    public JavelinPanel(){
+        super("LANCIO DEL GIAVELLOTTO",
+                "Il giocatore lancia 6 dadi. A ogni turno, il giocatore deve congelare almeno un dado e, se vuole, " +
+                        "può rilanciare i dadi restanti. Possono essere congelati soltanto i dadi con valore dispari (1, 3, 5). " +
+                        "Se tutti i dadi lanciati o rilanciati sono pari, il tentativo è nullo e il giocatore ottiene 0 punti in totale. " +
+                        "Il punteggio totale è dato dalla somma del valore dei dadi congelati.");
     }
-    
+
     protected void turn(Player p){
-        
+
         this.time = 180;
         this.reroll = true;
-        
+
         Thread timer = this.timer();
-        
+
         timer.start();
         this.throwDiscus(p, timer);
         if(!timer.isInterrupted())
             timer.interrupt();
-        
+
         this.appendText(p.getName() + " ha totalizzato " + p.getTempScore() + " punti");
     }
 
@@ -49,7 +49,7 @@ public class DiscusPanel extends DisciplinePanel{
             valid = false;
             this.rolls = Dice.roll(this.rerolls);
             for (int roll: this.rolls)
-                if(roll % 2 == 0) {
+                if(roll % 2 != 0) {
                     valid = true;
                     break;
                 }
@@ -123,7 +123,7 @@ public class DiscusPanel extends DisciplinePanel{
 
         int i = 0;
         for (int roll : rolls) {
-            if (roll % 2 == 0) {
+            if (roll % 2 != 0) {
                 JCheckBox box = new JCheckBox();
                 box.setText(String.valueOf(roll));
                 panel.add(box, new GridBagConstraints(i++, 1, 1, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.NORTH, new Insets(10, 5, 5, 5), 0, 0));
@@ -161,4 +161,5 @@ public class DiscusPanel extends DisciplinePanel{
         } else if (result == DEFAULT_OPTION || result == JOptionPane.NO_OPTION)
             this.reroll = false;
     }
+
 }

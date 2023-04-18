@@ -11,7 +11,8 @@ import static javax.swing.JOptionPane.*;
 public class HurdlesPanel extends DisciplinePanel{
 
     public HurdlesPanel(){
-        super("110 METRI OSTACOLI", "Il giocatore lancia 5 dadi. Se non è soddisfatto del risultato, "
+        super("110 METRI OSTACOLI",
+                "Il giocatore lancia 5 dadi. Se non è soddisfatto del risultato, "
                 + "il giocatore può rilanciare tutti i dadi. Ogni volta che rilancia, però, viene applicato un malus di 1 punto " +
                 "sul totale. Il giocatore può rilanciare fino a un massimo di 6 volte (oltre al primo tentativo). Il punteggio " +
                 "totale è dato dalla somma dei dadi dell'ultimo tentativo meno i malus accumulati a causa dei rilanci.");
