@@ -36,7 +36,7 @@ public class HundredMetersPanel extends DisciplinePanel {
         timer.interrupt();
 
         this.appendText(p.getName() + " ha totalizzato " + p.getTempScore() + " punti\n");
-        p.addScore(this.temp);
+        p.addScore(p.getTempScore());
     }
 
     private void turnMechanic(Player p) {

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class PlayerManager implements Serializable {
 
-    private List<Player> leaderboard;
+    private final List<Player> leaderboard;
     private static PlayerManager instance;
 
     private PlayerManager() {
@@ -51,7 +51,7 @@ public class PlayerManager implements Serializable {
     }
 
     public void tempSort() {
-        Collections.sort(this.leaderboard, (p1, p2) -> Integer.compare(p2.getTempScore(), p1.getTempScore()));
+        this.leaderboard.sort((p1, p2) -> Integer.compare(p2.getTempScore(), p1.getTempScore()));
     }
 
     public boolean contains(String g) {
@@ -69,12 +69,12 @@ public class PlayerManager implements Serializable {
 
     public String toString() {
         this.sort();
-        String output = "";
+        StringBuilder output = new StringBuilder();
         if(this.leaderboard.size() == 0){
             return "Nessun giocatore";
         }
         for(int i = 0; i<this.leaderboard.size(); i++)
-            output += i+1 + ") " + this.getPlayer(i).toString() + "\n";
-        return output;
+            output.append(i + 1).append(") ").append(this.getPlayer(i).toString()).append("\n");
+        return output.toString();
     }
 }

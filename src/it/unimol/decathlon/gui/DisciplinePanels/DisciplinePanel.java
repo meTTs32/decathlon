@@ -40,7 +40,6 @@ public abstract class DisciplinePanel extends Panel {
         super.build();
         this.setText("Disciplina corrente: " + this.discipline.getName() + "\n\nISTRUZIONI:\n" + this.discipline.getInstructions());
 
-        //todo: inserire le istruzioni della disciplina a schermo
         button1.setText("INIZIA DISCIPLINA");
         button2.setText("TERMINA DISCIPLINA");
         this.button2.setEnabled(false);
@@ -49,6 +48,7 @@ public abstract class DisciplinePanel extends Panel {
     }
 
     private void start() {
+
         if(!this.discipline.isFinished()) {
 
 //            setup iniziale del giocatore corrente
@@ -57,10 +57,12 @@ public abstract class DisciplinePanel extends Panel {
             this.setText("Disciplina corrente: " + this.discipline.getName() +"\nÈ il turno di " + p.getName() + "\n");
             this.button1.setText("INIZIA TURNO");
             this.button2.setText("TERMINA TURNO");
-            getWindowAncestor(this).repaint();
+            getWindowAncestor(this).revalidate();
 
             //scambio listener dei bottoni
             this.button1.removeActionListener(this.button1.getActionListeners()[0]);
+            if(this.button2.getActionListeners().length > 0)
+                this.button2.removeActionListener(this.button2.getActionListeners()[0]);
 
             //premendo il primo bottone, si inizia il turno del giocatore corrente
             this.button1.addActionListener(e -> {
