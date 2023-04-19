@@ -4,7 +4,6 @@ import it.unimol.decathlon.app.Dice;
 import it.unimol.decathlon.app.Player;
 
 import javax.swing.*;
-import java.util.Arrays;
 
 import static javax.swing.JOptionPane.*;
 
@@ -113,7 +112,7 @@ public class FifteenHundredPanel extends DisciplinePanel{
         } while (this.rerolls > 0 && this.reroll);
 
         if (this.rerolls > -1){
-            this.appendText("Lancio " + this.attempts + ": " + Arrays.toString(this.rolls) + " (CONGELATO)\n");
+            this.appendText("Lancio " + this.attempts + ": " + this.temp + " (CONGELATO)\n");
         }
 
         p.addTempScore(this.temp);

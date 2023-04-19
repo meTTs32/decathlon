@@ -5,8 +5,10 @@ import it.unimol.decathlon.app.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 import static javax.swing.JOptionPane.DEFAULT_OPTION;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 public class JavelinPanel extends DisciplinePanel{
 
@@ -30,18 +32,19 @@ public class JavelinPanel extends DisciplinePanel{
         Thread timer = this.timer();
 
         timer.start();
-        this.throwDiscus(p, timer);
+        this.throwJavelin(p, timer);
         if(!timer.isInterrupted())
             timer.interrupt();
 
         this.appendText(p.getName() + " ha totalizzato " + p.getTempScore() + " punti");
     }
 
-    private void throwDiscus(Player p, Thread timer) {
+    private void throwJavelin(Player p, Thread timer) {
 
         this.temp = 0;
         this.rerolls = 5;
         JLabel label = new JLabel();
+        Thread action = null;
         boolean valid;
 
         do{
@@ -60,54 +63,62 @@ public class JavelinPanel extends DisciplinePanel{
                 label.setText("Non è possibile congelare dadi, il tentativo è nullo");
                 JOptionPane.showMessageDialog(this, label, "TENTATIVO NULLO", JOptionPane.ERROR_MESSAGE);
             } else {
-                label.setText("<html>TOTALE: " + this.temp + "<br/>TEMPO RIMASTO: " + this.time +
-                        "<br/> DADI CONGELATI : " + (5 - this.rerolls) + "<br/>Rilanci? (scegli quali dadi congelare)</html>");
+                if(this.rerolls == 1){
+                    this.autoFreeze(action);
 
-                JPanel panel = this.buildDialog(this.rolls, label);
+                    label.setText("<html>TOTALE: " + this.temp + "<br/>Hai ottenuto " + this.roll + "<br/>Essendo l'ultimo dado, è stato congelato automaticamente</html>");
+                    JOptionPane.showMessageDialog(this, label, "LANCIO", INFORMATION_MESSAGE);
 
-                JOptionPane option = new JOptionPane(panel, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+                } else {
+                    label.setText("<html>LANCIO: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + "<br/> DADI CONGELATI : " + (5 - this.rerolls) +
+                            "<br/>TEMPO RIMASTO: " + this.time + "<br/>Rilanci? (scegli quali dadi congelare)</html>");
 
-                Thread action = new Thread(() -> {
-                    while (true){
-                        try {
-                            Thread.sleep(500);
+                    JPanel panel = this.buildDialog(this.rolls, label);
 
-                            label.setText("<html>TOTALE: " + this.temp + "<br/>TEMPO RIMASTO: " + this.time +
-                                    "<br/> DADI CONGELATI : " + (5 - this.rerolls) + "<br/>Rilanci? (scegli quali dadi congelare)</html>");
+                    JOptionPane option = new JOptionPane(panel, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
 
-                            errorLabel.setText("<html>Devi selezionare almeno un dado<br/>TEMPO RIMASTO: "
-                                    + this.time + "</html>");
+                    action = new Thread(() -> {
+                        while (true) {
+                            try {
+                                Thread.sleep(500);
 
-                            if(this.time == 0){
-                                this.appendText(p.getName() + " ha saltato il turno\n");
-                                this.rerolls = -1;
-                                this.temp = 0;
-                                if(error.isVisible()){
-                                    error.setValue(JOptionPane.CLOSED_OPTION);
-                                    error.setVisible(false);
+                                label.setText("<html>LANCIO: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + "<br/> DADI CONGELATI : " + (5 - this.rerolls) +
+                                        "<br/>TEMPO RIMASTO: " + this.time + "<br/>Rilanci? (scegli quali dadi congelare)</html>");
+
+                                errorLabel.setText("<html>Devi selezionare almeno un dado<br/>TEMPO RIMASTO: "
+                                        + this.time + "</html>");
+
+                                if (this.time == 0) {
+                                    this.appendText(p.getName() + " ha saltato il turno\n");
+                                    this.rerolls = -1;
+                                    this.temp = 0;
+                                    if (error.isVisible()) {
+                                        error.setValue(JOptionPane.CLOSED_OPTION);
+                                        error.setVisible(false);
+                                    }
+
+                                    option.setValue(JOptionPane.CLOSED_OPTION);
+                                    option.setVisible(false);
+
+                                    break;
                                 }
-
-                                option.setValue(JOptionPane.CLOSED_OPTION);
-                                option.setVisible(false);
-
+                            } catch (InterruptedException e) {
                                 break;
                             }
-                        } catch (InterruptedException e) {
-                            break;
+
                         }
+                    });
 
-                    }
-                });
+                    action.start();
 
-                action.start();
+                    do {
+                        option.createDialog("LANCIO").setVisible(true);
+                        this.turnMechanic(option, panel);
+                    } while (this.selected == 0 && this.reroll);
 
-                do {
-                    option.createDialog("LANCIO").setVisible(true);
-                    this.turnMechanic(option, panel);
-                } while (this.selected == 0 && this.reroll);
-
-                if(!action.isInterrupted())
-                    action.interrupt();
+                    if (!action.isInterrupted())
+                        action.interrupt();
+                }
             }
         }while(this.reroll && this.rerolls > 0 && valid);
 
@@ -160,6 +171,17 @@ public class JavelinPanel extends DisciplinePanel{
             }
         } else if (result == DEFAULT_OPTION || result == JOptionPane.NO_OPTION)
             this.reroll = false;
+    }
+
+    private void autoFreeze(Thread action) {
+        this.rerolls--;
+
+        if(action!=null && !action.isInterrupted())
+            action.interrupt();
+
+        this.roll = Dice.roll();
+        this.temp += this.roll;
+
     }
 
 }

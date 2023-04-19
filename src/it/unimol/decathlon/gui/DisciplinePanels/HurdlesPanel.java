@@ -49,7 +49,7 @@ public class HurdlesPanel extends DisciplinePanel{
             if(this.rerolls == 6)
                 this.reroll = false;
             else {
-                JLabel label = new JLabel("<html>DADI: " + Arrays.toString(this.rolls) + "<br/>MALUS: " + this.rerolls + "<br/>TOTALE: " + this.temp + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + (6 - this.rerolls) + " rilanci rimasti)</html>");
+                JLabel label = new JLabel("<html>DADI: " + Arrays.toString(this.rolls) + "<br/>MALUS: " + this.rerolls + "<br/>TOTALE (malus non applicato): " + (this.temp + this.rerolls) + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + (6 - this.rerolls) + " rilanci rimasti)</html>");
                 JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION);
 
                 Thread action = new Thread(() -> {

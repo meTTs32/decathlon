@@ -64,7 +64,7 @@ public class FourHundredMetersPanel extends DisciplinePanel{
 
             if (this.rerolls > 0){
 
-                JLabel label = new JLabel("DADI: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + this.rerolls + " rilanci rimasti)</html>");
+                JLabel label = new JLabel("<html>DADI: " + Arrays.toString(this.rolls) + "<br/>TOTALE: " + this.temp + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + this.rerolls + " rilanci rimasti)</html>");
                 JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION);
 
                 Thread action = new Thread (() -> {
