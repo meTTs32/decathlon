@@ -31,14 +31,19 @@ public class MainPanel extends Panel {
     private MainPanel(){
 
         //inizializazzione componenti applicativi;
-        this.disciplinePanels = new DisciplinePanel[1];
-//        this.disciplinePanels[0] = new HundredMetersPanel();
-//        this.disciplinePanels[0] = new LongJumpPanel();
-//        this.disciplinePanels[0] = new WeightThrowPanel();
-//        this.disciplinePanels[0] = new HighJumpPanel();
-//        this.disciplinePanels[0] = new FourHundredMetersPanel();
-        this.disciplinePanels[0] = new HurdlesPanel();
-        //TODO: inserire le discipline nell'array
+
+        this.disciplinePanels = new DisciplinePanel[]{
+                new HundredMetersPanel(),
+                new LongJumpPanel(),
+                new WeightThrowPanel(),
+                new HighJumpPanel(),
+                new FourHundredMetersPanel(),
+                new HurdlesPanel(),
+                new DiscusPanel(),
+                new PoleVaultPanel(),
+                new JavelinPanel(),
+                new FifteenHundredPanel()
+        };
 
         //inizializzazione componenti grafici
         this.build();
@@ -91,7 +96,7 @@ public class MainPanel extends Panel {
             else
                 this.appendText("       ");
 
-            this.appendText(this.disciplinePanels[i].getName() + ";\n");
+            this.appendText(this.disciplinePanels[i].getName() + "\n");
         }
     }
 

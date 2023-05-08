@@ -11,7 +11,8 @@ import static javax.swing.JOptionPane.*;
 public class HurdlesPanel extends DisciplinePanel{
 
     public HurdlesPanel(){
-        super("110 METRI OSTACOLI", "Il giocatore lancia 5 dadi. Se non è soddisfatto del risultato, "
+        super("110 METRI OSTACOLI",
+                "Il giocatore lancia 5 dadi. Se non è soddisfatto del risultato, "
                 + "il giocatore può rilanciare tutti i dadi. Ogni volta che rilancia, però, viene applicato un malus di 1 punto " +
                 "sul totale. Il giocatore può rilanciare fino a un massimo di 6 volte (oltre al primo tentativo). Il punteggio " +
                 "totale è dato dalla somma dei dadi dell'ultimo tentativo meno i malus accumulati a causa dei rilanci.");
@@ -48,7 +49,7 @@ public class HurdlesPanel extends DisciplinePanel{
             if(this.rerolls == 6)
                 this.reroll = false;
             else {
-                JLabel label = new JLabel("<html>DADI: " + Arrays.toString(this.rolls) + "<br/>MALUS: " + this.rerolls + "<br/>TOTALE: " + this.temp + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + (6 - this.rerolls) + " rilanci rimasti)</html>");
+                JLabel label = new JLabel("<html>DADI: " + Arrays.toString(this.rolls) + "<br/>MALUS: " + this.rerolls + "<br/>TOTALE (malus non applicato): " + (this.temp + this.rerolls) + " punti.<br/>TEMPO RIMASTO : " + this.time + "<br/>Vuoi rilanciare? (" + (6 - this.rerolls) + " rilanci rimasti)</html>");
                 JOptionPane panel = new JOptionPane(label, QUESTION_MESSAGE, YES_NO_OPTION);
 
                 Thread action = new Thread(() -> {
