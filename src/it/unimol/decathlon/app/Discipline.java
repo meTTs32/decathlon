@@ -94,20 +94,20 @@ public class Discipline implements Serializable {
      */
     public String getPodium() {
         this.playerManager.tempSort();
-        String output = "";
+        StringBuilder output = new StringBuilder();
         int index;
 
         if(this.playerManager.getBoard().size()<3) {
             for(Player g : this.playerManager.getBoard()){
                 index = this.playerManager.getBoard().indexOf(g) + 1;
-                output += index + ") " + g.tempString() + "\n";
+                output.append(index).append(") ").append(g.tempString()).append("\n");
             }
         }else for(int i=0; i<3; i++)
-            output += i+1 + ") " + this.playerManager.getPlayer(i).tempString() + "\n";
+            output.append(i + 1).append(") ").append(this.playerManager.getPlayer(i).tempString()).append("\n");
 
-        output+= "\nIl vincitore della disciplina è " + this.getWinner() + " punti!\n";
+        output.append("\nIl vincitore della disciplina è ").append(this.getWinner()).append(" punti!\n");
 
-        return output;
+        return output.toString();
     }
 
 
