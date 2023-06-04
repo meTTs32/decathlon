@@ -3,12 +3,12 @@ package it.unimol.decathlon.app;
 import java.io.Serializable;
 import java.util.*;
 
-
+/**
+ * Classe che serve a gestire una singola disciplina.
+ */
 public class Discipline implements Serializable {
 
-    /**
-     * Classe che serve a gestire una singola disciplina.
-     */
+
 
     private final PlayerManager playerManager;
 
@@ -19,7 +19,8 @@ public class Discipline implements Serializable {
 
 
     /**
-     * Costruttore della classe disciplina.
+     * Costruttore della classe disciplina. Istanzia il playerManager, imposta il nome dalla disciplina
+     * e inizializza l'insieme dei giocatori che hanno già giocato a questa disciplina e l'array di istruzioni.
      *
      * @param nome nome della disciplina.
      */

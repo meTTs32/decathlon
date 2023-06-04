@@ -2,11 +2,12 @@ package it.unimol.decathlon.app;
 
 import java.util.Random;
 
-public class Dice {
+/**
+ * Classe che rappresenta un dado.
+ */
+ public class Dice {
 
     /**
-     * Classe che rappresenta un dado.
-     * <br/>
      * Lancia un singolo dado
      * @return il numero uscito dal dado
      */

@@ -4,18 +4,19 @@ import it.unimol.decathlon.app.exceptions.VoidNameException;
 
 import java.io.Serializable;
 
+/**
+ * Classe che rappresenta un giocatore.
+ */
 public class Player implements Comparable<Player>, Serializable {
 
-    /**
-     * Classe che rappresenta un giocatore.
-     */
+
 
     private final String name;
     private int points;
     private int tempPoints;
 
     /**
-     * Costruttore della classe giocatore.
+     * Costruttore della classe giocatore. Imposta il nome del giocatore e i suoi punti a 0.
      *
      * @param name nome del giocatore.
      * @throws VoidNameException se il nome è vuoto.

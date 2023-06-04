@@ -22,7 +22,7 @@ public class PlayerTest {
             this.player = new Player("Test");
         } catch (Exception ignored){}
 
-        this.player.addScore(10);
+        this.player.addTempScore(10);
         Assert.assertEquals(10, this.player.getTempScore());
     }
 
