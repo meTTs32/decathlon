@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"it.unimol.decathlon.app","l":"Dice"},{"p":"it.unimol.decathlon.app","l":"Discipline"},{"p":"it.unimol.decathlon.app","l":"Player"},{"p":"it.unimol.decathlon.app","l":"PlayerManager"}];updateSearchResults();

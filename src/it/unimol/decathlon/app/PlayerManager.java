@@ -5,18 +5,29 @@ import it.unimol.decathlon.app.exceptions.DuplicatePlayerException;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Classe che serve a gestire la classifica del gioco.
+ */
 public class PlayerManager implements Serializable {
 
-    /**
-     * Singleton che serve a gestire la classifica del gioco.
-     */
+
 
     private final List<Player> leaderboard;
     private static PlayerManager instance;
 
+    /**
+     * Costruttore della classe PlayerManager. Inizializza la classifica.
+     */
     private PlayerManager() {
         this.leaderboard = new ArrayList<>();
     }
+
+    /**
+     * Costruttore della classe PlayerManager. Copia la classifica del PlayerManager passato come parametro nella classifica
+     * del PlayerManager che si sta istanziando.
+     *
+     * @param g il PlayerManager da cui copiare la classifica
+     */
     private PlayerManager(PlayerManager g) { this.leaderboard = new ArrayList<>(g.getBoard()); }
 
 
